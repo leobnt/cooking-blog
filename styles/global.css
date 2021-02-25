@@ -27,11 +27,15 @@ img {
   display: block;
 }
 
-.selectedPixel {
-  border: 4px solid;
+.basicPixel {
   border-radius: 5px;
+  height: 50px;
+  width: 50px;
 }
 
-.basicPixel {
+.selectedPixel {
+  height: 50px;
+  width: 50px;
+  border: 4px solid;
   border-radius: 5px;
 }

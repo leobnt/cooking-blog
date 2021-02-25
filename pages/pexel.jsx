@@ -68,15 +68,16 @@ class PxlComponent extends React.Component {
         let newPixelTab = this.state.pixelTab;
 
         newPixelTab[y][x] = colorHex;
-        this.setState({ color: colorHex, pixelTab: newPixelTab })
+        this.setState({ pixelTab: newPixelTab })
     }
 
     handleChange = (color, event) => {
-        this.updatePixelColor(this.state.pos.x, this.state.pos.y, color.hex);
+        this.setState({ color: color.hex })
     };
 
     handleClickOnPixel = (x, y) => {
-        this.setState({ pos: { x: x, y: y }, displayColorPicker: !this.state.displayColorPicker });
+        this.setState({ pos: { x: x, y: y }});
+        this.updatePixelColor(x, y, this.state.color);
     }
 
     render() {
@@ -88,7 +89,8 @@ class PxlComponent extends React.Component {
                             {row.map((cell, idCell) => (
                                 <div onClick={() => this.handleClickOnPixel(idCell, idRow)} key={`cel_${idCell}`}
                                     className={(idRow % this.state.config.tabHeight == this.state.pos.y && idCell % this.state.config.tabWidth == this.state.pos.x ? 'selectedPixel' : 'basicPixel')}
-                                    style={{ width: '50px', height: '50px', margin: '2px', backgroundColor: cell, borderColor: this.state.color }}></div>
+                                    style={{ margin: '2px', backgroundColor: cell, borderColor: this.state.color }}></div>
+                                    // style={{ width: '50px', height: '50px', margin: '2px', backgroundColor: cell, borderColor: this.state.color }}></div>
                             ))}
                         </div>
                     ))}
