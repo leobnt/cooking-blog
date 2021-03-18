@@ -1,6 +1,8 @@
-html,
+html {
+  background: #fafafa;
+}
+
 body {
-  background: linear-gradient(to right, rgb(46, 204, 113), rgb(41, 128, 185));
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -11,31 +13,4 @@ body {
 
 * {
   box-sizing: border-box;
-}
-
-a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-.basicPixel {
-  border-radius: 5px;
-  height: 50px;
-  width: 50px;
-}
-
-.selectedPixel {
-  height: 50px;
-  width: 50px;
-  border: 4px solid;
-  border-radius: 5px;
 }

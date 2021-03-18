@@ -1,12 +1,15 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import Link from 'next/link'
-// import Date from '../components/date'
-import PxlComponent from '../pages/pexel'
+import { getSortedPostsData } from '../lib/picture'
 import React from 'react'
-
+import Image from 'next/image'
+import {
+  Box,
+  Wrap,
+  WrapItem,
+  useToast,
+} from "@chakra-ui/react";
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -17,8 +20,8 @@ export default class Home extends React.Component {
     };
   }
   handleHookFunc(event) {
-    if (event.keyCode === 32 || event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40 || event.keyCode == 67 ) {
-      this.setState({handleHook: event.keyCode, handleNumb: ++this.state.handleNumb});
+    if (event.keyCode === 32 || event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40 || event.keyCode == 67) {
+      this.setState({ handleHook: event.keyCode, handleNumb: ++this.state.handleNumb });
     }
   }
   componentDidMount() {
@@ -33,66 +36,33 @@ export default class Home extends React.Component {
         <Head>
           <title>{siteTitle}</title>
         </Head>
-        {/* <section className={utilStyles.headingMd}>
-          <p>[...]</p>
-        </section> */}
-        <PxlComponent handleHook={this.state.handleHook} handleNumb={this.state.handleNumb}/>
-        {/* <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-          <h2 className={utilStyles.headingLg}>Blog</h2>
-          <ul className={utilStyles.list}>
-            {this.props.allPostsData.map(({ id, date, title }) => (
-              <li className={utilStyles.listItem} key={id}>
-                <Link href={`/posts/${id}`}>
-                  <a>{title}</a>
-                </Link>
-                <br />
-                <small className={utilStyles.lightText}>
-                  <Date dateString={date} />
-                </small>
-              </li>
-            ))}
-          </ul>
-        </section> */}
+        <Box m={50} >
+        <Wrap justify="center">
+          {this.props.allPostsData.map((img, index) => (
+            <WrapItem
+              key={index}
+              boxShadow="base"
+              rounded="20px"
+              overflow="hidden"
+              bg="white"
+              lineHeight="0"
+              _hover={{ boxShadow: "dark-lg" }}>
+                <Image className={utilStyles.pictureItem} src={img}
+                 height={600} width={400} ></Image>
+            </WrapItem>
+          ))}
+        </Wrap>
+      </Box>
       </Layout>
     )
   }
 }
 
-// export default function Home({ allPostsData }) {
-//   return (
-//     <Layout home onKeyDown={ handleKeyDown } tabIndex='0'>
-//       <Head>
-//         <title>{siteTitle}</title>
-//       </Head>
-//       <section className={utilStyles.headingMd}>
-//         <p>[...]</p>
-//       </section>
-//       <PxlComponent/>
-//       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-//         <h2 className={utilStyles.headingLg}>Blog</h2>
-//         <ul className={utilStyles.list}>
-//           {allPostsData.map(({ id, date, title }) => (
-//             <li className={utilStyles.listItem} key={id}>
-//               <Link href={`/posts/${id}`}>
-//                 <a>{title}</a>
-//               </Link>
-//               <br/>
-//               <small className={utilStyles.lightText}>
-//                 <Date dateString={date} />
-//               </small>
-//             </li>
-//           ))}
-//         </ul>
-//       </section>
-//     </Layout>
-//   )
-// }
-
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
+  const allPostsData = getSortedPostsData();
   return {
     props: {
-      allPostsData
+      allPostsData,
     }
   }
 }
